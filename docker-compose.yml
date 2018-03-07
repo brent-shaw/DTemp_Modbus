@@ -1,0 +1,21 @@
+version: '3'
+services:
+    server:
+        build: ModbusServer/.
+        networks:
+          - modbus-net2
+    client1:
+        build: ModbusClient/.
+        networks:
+          - modbus-net2
+        depends_on:
+          - "server"
+
+networks:
+  modbus-net2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.20.0.0/16
